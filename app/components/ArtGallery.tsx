@@ -232,10 +232,14 @@ const multimedia: Artwork[] = [
 
 const digitalGroups = [
   {
-    title: "Illustrations for short films",
+    title: " ",
     description:
-      "Illustration work for a children's cartoon project. Add project dates and credits here.",
+      " ",
     artworks: [1, 2],
+    links: [
+      "https://www.youtube.com/watch?v=nrYa2POHE00",
+      "https://www.youtube.com/watch?v=m4wdwrgZnUU",
+    ],
   },
   {
     title: "Digital designs and multimedia works for clubs",
@@ -528,53 +532,38 @@ export default function ArtGallery() {
                             {group.description}
                           </p>
                         )}
-                        <div
-                          className={`grid gap-3 ${
-                            group.artworks.length === 2
-                              ? "grid-cols-1 sm:grid-cols-2"
-                              : "grid-cols-1 sm:grid-cols-2"
-                          }`}
-                        >
+                        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                           {group.artworks.map((artworkNumber) => {
                             const artwork = digitalArtworks[artworkNumber - 1];
+                            const link = group.links?.[artworkNumber - 1];
 
                             return (
-                              <button
-                                aria-label={`View ${artwork.title}`}
-                                aria-pressed={
-                                  activeArtwork?.src === artwork.src
-                                }
-                                className={`relative aspect-[1.6] overflow-hidden rounded-md bg-white/60 ${
-                                  activeArtwork?.src === artwork.src
-                                    ? "outline outline-2 outline-[#df818c]"
-                                    : "transition-opacity hover:opacity-80"
-                                }`}
-                                key={artwork.src}
-                                onClick={() => selectArtwork(artwork)}
-                                type="button"
-                              >
-                                <Image
-                                  className="object-cover"
-                                  src={artwork.src}
-                                  fill
-                                  sizes="(max-width: 640px) 90vw, 45vw"
-                                  alt=""
-                                />
-                              </button>
+                              <div className="min-w-0" key={artwork.src}>
+                                <div className="relative aspect-[1.6] overflow-hidden rounded-md bg-white/60">
+                                  <Image
+                                    className="object-cover"
+                                    src={artwork.src}
+                                    fill
+                                    sizes="(max-width: 640px) 90vw, 45vw"
+                                    alt={artwork.title}
+                                  />
+                                </div>
+                                {link && (
+                                  <a
+                                    className="mt-2 inline-block font-[family-name:var(--font-Instru)] text-2xl text-[#d77f8a] underline underline-offset-4"
+                                    href={link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    [Link {artworkNumber}]
+                                  </a>
+                                )}
+                              </div>
                             );
                           })}
                         </div>
                       </section>
                     ))}
-                    {activeArtwork &&
-                      digitalArtworks.some(
-                        (artwork) => artwork.src === activeArtwork.src,
-                      ) && (
-                        <ArtworkDetails
-                          artwork={activeArtwork}
-                          onClose={() => setActiveArtwork(null)}
-                        />
-                      )}
                   </div>
                 ) : (
                   <>
