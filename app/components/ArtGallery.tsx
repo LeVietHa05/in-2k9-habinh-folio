@@ -13,7 +13,13 @@ type Artwork = {
   description: string;
   special?: {
     title: string;
-    text: string;
+    groups: {
+      title: string;
+      images: {
+        src: string;
+        caption?: string;
+      }[];
+    }[];
   };
 };
 
@@ -176,8 +182,50 @@ const multimedia: Artwork[] = [
     description:
       "Fish stories follows the process of making and preserving one of My Canh village’s most famous traditions: manufacturing fish sauce. I depicted the process from netting large quantities of anchovies, fermenting them in vats, to a final, packaged product. Fish stories also explores the habit of wearing protective clothing against the sun, sometimes quirkily dubbed “ninja clothing” by Vietnamese newspapers. ",
     special: {
-      title: "The beginning of a series",
-      text: "This work opened a path for later paintings to revisit nature, foliage, and the small moments shared between people. Add sketches, references, or further project notes here.",
+      title:
+        "Sketches, references from personal artworks, and local research into the fish sauce manufacturing process in Bao Ninh for Fish stories (early summer 2025)",
+      groups: [
+        {
+          title:
+            "Steps for fish sauce manufacturing (photos taken at a local manufacture)",
+          images: [
+            {
+              src: "/art-media-speical-1.png",
+              caption:
+                "Fresh anchovies placed in a giant plastic vat (120 kilograms) and salt is added at a 7:1 ratio",
+            },
+            {
+              src: "/art-media-speical-2.png",
+              caption:
+                "It is left to ferment for 6 months before filtered (removing bones, impurities). No water added",
+            },
+            {
+              src: "/art-media-speical-3.png",
+              caption: "Rocks are used to squeeze out the impurities",
+            },
+            {
+              src: "/art-media-speical-4.png",
+              caption:
+                "The finished, unfiltered product should consist of 60 kg of liquid and 60 kg of impurities",
+            },
+            {
+              src: "/art-media-speical-5.png",
+              caption:
+                "Packaged results (shrimp paste on the middle and left and fish sauce on the right)",
+            },
+          ],
+        },
+        {
+          title: "Sketches and references from old artworks",
+          images: [
+            { src: "/art-media-speical-6.png" },
+            { src: "/art-media-speical-7.png" },
+            { src: "/art-media-speical-8.png" },
+            { src: "/art-media-speical-9.png" },
+            { src: "/art-media-speical-10.png" },
+          ],
+        },
+      ],
     },
   },
 ];
@@ -225,6 +273,10 @@ function ArtworkDetails({
   artwork: Artwork;
   onClose: () => void;
 }) {
+  const [expandedSpecialImage, setExpandedSpecialImage] = useState<string | null>(
+    null,
+  );
+
   return (
     <article className="mt-6 border-y border-[#df818c] py-6 text-[#10234a]">
       <div className="grid gap-6 md:grid-cols-[minmax(0,1.4fr)_minmax(240px,0.8fr)]">
@@ -267,13 +319,78 @@ function ArtworkDetails({
       </div>
       {artwork.special && (
         <section className="mt-8 border-t border-[#df818c] pt-5">
-          <h4 className="font-[family-name:var(--font-Instru)] text-2xl text-[#d77f8a] md:text-3xl">
+          <h4 className="border-b border-[#df818c] pb-4 font-[family-name:var(--font-Instru)] text-2xl leading-tight text-[#d77f8a] md:text-3xl">
             {artwork.special.title}
           </h4>
-          <p className="mt-3 max-w-3xl leading-relaxed">
-            {artwork.special.text}
-          </p>
+          {artwork.special.groups.map((group) => (
+            <section
+              className="border-b border-[#df818c] py-4 last:border-b-0"
+              key={group.title}
+            >
+              <h5 className="mb-3 font-[family-name:var(--font-Instru)] text-lg leading-snug text-[#d77f8a] md:text-xl">
+                {group.title}
+              </h5>
+              <div className="grid grid-cols-2 gap-x-4 gap-y-5 md:grid-cols-5">
+                {group.images.map((image, index) => (
+                  <figure className="min-w-0" key={image.src}>
+                    <button
+                      aria-label={`Enlarge ${
+                        image.caption ??
+                        `${group.title} image ${index + 1}`
+                      }`}
+                      className="relative block aspect-[1.45] w-full overflow-hidden bg-white/60"
+                      onClick={() => setExpandedSpecialImage(image.src)}
+                      type="button"
+                    >
+                      <Image
+                        className="object-cover"
+                        src={image.src}
+                        fill
+                        sizes="(max-width: 768px) 45vw, 18vw"
+                        alt={image.caption ?? `Research reference ${index + 1}`}
+                      />
+                    </button>
+                    {image.caption && (
+                      <figcaption className="mt-2 text-xs leading-snug text-[#10234a] md:text-sm">
+                        {image.caption}
+                      </figcaption>
+                    )}
+                  </figure>
+                ))}
+              </div>
+            </section>
+          ))}
         </section>
+      )}
+      {expandedSpecialImage && artwork.special && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#10234a]/90 p-4"
+          onClick={() => setExpandedSpecialImage(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Expanded research image"
+        >
+          <button
+            aria-label="Close expanded image"
+            className="absolute right-5 top-5 rounded-full border border-white/80 px-4 py-2 text-white hover:bg-white/10"
+            onClick={() => setExpandedSpecialImage(null)}
+            type="button"
+          >
+            Close
+          </button>
+          <div
+            className="relative h-[85vh] w-full max-w-6xl"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <Image
+              className="object-contain"
+              src={expandedSpecialImage}
+              fill
+              sizes="100vw"
+              alt="Expanded research reference"
+            />
+          </div>
+        </div>
       )}
     </article>
   );
@@ -395,9 +512,7 @@ export default function ArtGallery() {
                         {section.title}
                       </h3>
                       <p className="mx-auto max-w-3xl text-left leading-relaxed text-[#d77f8a]">
-                        A collection of illustrations, club designs, and
-                        collaborative digital projects. Replace this
-                        introduction with your project details.
+                        These are products from my participation in the Minh Viet Kids cartoon project from 2020 - 2021. I worked as an illustrator for the two short films.
                       </p>
                     </div>
                     {digitalGroups.map((group) => (
