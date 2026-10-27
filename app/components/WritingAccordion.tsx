@@ -126,6 +126,10 @@ const articles: Article[] = [
         text: "“&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;”",
         className: "w-full text-justify",
       },
+      {
+        text: "<b>Notes:</b> <i>How to learn a language</i> is formatted like Cambridge Dictionary’s definition page. It received the Distinguished Writers Award (Fiction category) for the Bennington College Young Writers Awards 2025 - 2026.",
+        className: "w-full text-justify",
+      },
     ],
   },
   {
@@ -162,6 +166,10 @@ const articles: Article[] = [
       {
         text: "The walls are finally closing in. I’m here, but I am never here. I am always somewhere else. I lament the old life I have, as I always do. ",
         className: "text-center",
+      },
+      {
+        text: "<b>Notes:</b> <i>Alexithymia</i>, according to the definition by the Cambridge Dictionary, is “a condition in which someone is unable to recognize or describe their emotions.”",
+        className: "w-full text-justify",
       },
     ],
   },
@@ -240,6 +248,10 @@ const articles: Article[] = [
         text: "The last thing I felt was immense pain, shattering me. Finally.",
         className: "text-left",
       },
+      {
+        text: "<b>Notes:</b> <i>Memory of ceramics</i> is based on the prompt: write from the perspective of an object that has witnessed three generations of a family. The ceramic jar is inspired by a 100-year-old decorative piece in my paternal grandparents’ home. ",
+        className: "w-full text-justify",
+      },
     ],
   },
   {
@@ -312,6 +324,10 @@ const articles: Article[] = [
       {
         text: "I do not know why she died that way. It was selfish of her to take away Mother and Father. In the end, I remained.",
         className: "ml-auto  text-left",
+      },
+      {
+        text: "<b>Notes:</b> <i>Yellow</i> explores how color perception changes with age through a 17-year-old's reflection.",
+        className: "w-full text-justify",
       },
     ],
   },

@@ -30,7 +30,7 @@ type GallerySection = {
 
 const sketches: Artwork[] = [
   {
-    src: "/art-sketch-1.png",
+    src: "/Craftsmen in their element, fishes in impediment.jpg",
     title: "Craftsmen in their element, fishes in impediment",
     year: " ",
     size: "21 × 29.7 cm",
@@ -40,7 +40,7 @@ const sketches: Artwork[] = [
       "Craftsmen in their element, fishes in impediment combines Vietnam’s traditional textile with the country’s developed aquaculture industry. Marine animals, inspired by Bruegel the Elder’s famous “Big Fish Eat Little Fish”, were depicted without much fanfare, with bloodied scales and lifeless eyes. ",
   },
   {
-    src: "/art-sketch-2.png",
+    src: "/Worm's paradise.jpg",
     title: "Worm’s paradise",
     year: " ",
     size: "21 × 29.7 cm",
@@ -50,7 +50,7 @@ const sketches: Artwork[] = [
       "Worm’s paradise reimagines the hidden life of fire ants. Inspired (or annoyed) by luckless instances of stepping on fire ant colonies, I returned to my papers, visualizing myself as a colony member. From a well at the entrance, a winding pool system, to countless rooms with bunk beds, people can carry out their day-to-day functions in the safety of worms’ world.",
   },
   {
-    src: "/art-sketch-3.png",
+    src: "/The Inn.jpg",
     title: "The Inn",
     year: " ",
     size: "21 × 29.7 cm",
@@ -60,7 +60,7 @@ const sketches: Artwork[] = [
       "In the years before entering first grade, I frequently requested Pinocchio as a bedtime story. I loved The Red Lobster Inn aesthetic especially, and The Inn is my interpretation of a dream restaurant. In the crowded space, people's lives are intertwined yet separated: the lone customer and waitress interact with one another, while the open door reveals the hardships outside. ",
   },
   {
-    src: "/art-sketch-4.png",
+    src: "/All the world's knowledge.jpg",
     title: "All the world’s knowledge",
     year: " ",
     size: "21 × 29.7 cm",
@@ -70,7 +70,7 @@ const sketches: Artwork[] = [
       "Could there be a modern, Vietnamese equivalent of the library of Alexandria? All the world’s knowledge attempts this Herculean goal, including books from many fields, mainly in English and Vietnamese. Although the work failed in representing the world's boundless knowledge, it encapsulates a tiny slice of that pie.",
   },
   {
-    src: "/art-sketch-5.png",
+    src: "/Gifts.jpg",
     title: "Gifts",
     year: " ",
     size: "21 × 29.7 cm",
