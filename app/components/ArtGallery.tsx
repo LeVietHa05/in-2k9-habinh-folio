@@ -30,7 +30,7 @@ type GallerySection = {
 
 const sketches: Artwork[] = [
   {
-    src: "/Craftsmen in their element, fishes in impediment.jpg",
+    src: "/Craftsmen.jpg",
     title: "Craftsmen in their element, fishes in impediment",
     year: " ",
     size: "21 × 29.7 cm",
