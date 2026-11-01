@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
+import Image from "next/image";
 
 type Article = {
   title: string;
+  cover: string;
   paragraphs: {
     text: string;
     className: string;
@@ -13,6 +15,7 @@ type Article = {
 const articles: Article[] = [
   {
     title: "How to learn a language",
+    cover: "/writing1.png", // Thay bằng tên ảnh bìa trong thư mục public
     paragraphs: [
       {
         text: "I. Glossary",
@@ -134,6 +137,7 @@ const articles: Article[] = [
   },
   {
     title: "Alexithymia",
+    cover: "/writing2.png", // Thay bằng tên ảnh bìa trong thư mục public
     paragraphs: [
       {
         text: "I knew if I didn’t love them, one day they would stop loving me back. But I never, ever wanted them to stop loving me. ",
@@ -175,6 +179,7 @@ const articles: Article[] = [
   },
   {
     title: "Memory of ceramics",
+    cover: "/writing3.png", // Thay bằng tên ảnh bìa trong thư mục public
     paragraphs: [
       {
         text: "The first thing I felt was immense pain.",
@@ -256,6 +261,7 @@ const articles: Article[] = [
   },
   {
     title: "DD/MM/YY (unremarkable, for short)",
+    cover: "/writing4.png", // Thay bằng tên ảnh bìa trong thư mục public
     paragraphs: [
       {
         text: "She died on such an ordinary day. No one even thought it would be possible for her to leave on such an ordinary day, so she died alone. ",
@@ -326,13 +332,14 @@ const articles: Article[] = [
         className: "ml-auto  text-left",
       },
       {
-        text: "<b>Notes:</b> <i>Yellow</i> explores how color perception changes with age through a 17-year-old's reflection.",
+        text: "<b>Notes:</b> <i>DD/MM/YY (unremarkable, for short)</i> is a collection of fragmented memories from the eyes of a forgotten daughter about her family’s fallout. She is not a reliable narrator, but is the only one available. ",
         className: "w-full text-justify",
       },
     ],
   },
   {
     title: "Yellow",
+    cover: "/writing5.png", // Thay bằng tên ảnh bìa trong thư mục public
     paragraphs: [
       {
         text: "When I was older, I found out",
@@ -420,7 +427,11 @@ const articles: Article[] = [
               When my eyes still recognized yellows <br/>\
               A decade of sun-dry afternoons ago. <br/>\
               ",
-        className: "mx-auto  mb-0  text-center  ",
+        className: "mx-auto  mb-5  text-center  ",
+      },
+      {
+        text: "<b>Notes:</b> <i>Yellow</i> explores how color perception changes with age through a 17-year-old's reflection.",
+        className: "w-full text-justify",
       },
     ],
   },
@@ -428,73 +439,116 @@ const articles: Article[] = [
 
 export default function WritingAccordion() {
   const [activeArticle, setActiveArticle] = useState<number | null>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  const handleSelectArticle = (index: number) => {
+    const nextValue = activeArticle === index ? null : index;
+    setActiveArticle(nextValue);
+
+    if (nextValue !== null) {
+      setTimeout(() => {
+        contentRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    }
+  };
 
   return (
-    <div className="mx-auto w-full max-w-[900px]">
-      {articles.map((article, index) => {
-        const isOpen = activeArticle === index;
-        const panelId = `writing-article-${index}`;
+    <div className="mx-auto w-full max-w-[1100px] py-6">
+      {/* Lưới các hộp hình vuông (Square Boxes) */}
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+        {articles.map((article, index) => {
+          const isOpen = activeArticle === index;
 
-        return (
-          <section
-            className="border-t border-[#df818c] last:border-b"
-            key={article.title}
-          >
-            <h2>
-              <button
-                aria-controls={panelId}
-                aria-expanded={isOpen}
-                className="group flex w-full items-center justify-between gap-4 py-2 text-left font-[family-name:var(--font-Instru)] text-[clamp(1.25rem,3vw,1.75rem)] italic leading-tight text-[#d77f8a]"
-                onClick={() => setActiveArticle(isOpen ? null : index)}
-                type="button"
-              >
-                <span>{article.title}</span>
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-full border border-[#df818c] transition-colors group-hover:bg-[#df818c]/10">
-                  <svg
-                    aria-hidden="true"
-                    className={`size-6 transition-transform duration-300 ${
-                      isOpen ? "rotate-90" : ""
+          return (
+            <button
+              key={article.title}
+              type="button"
+              onClick={() => handleSelectArticle(index)}
+              aria-expanded={isOpen}
+              className={`group relative aspect-square w-full overflow-hidden border-2 text-left transition-all duration-300 ${
+                isOpen
+                  ? "border-[#10234a] ring-2 ring-[#10234a]/30"
+                  : "border-[#df818c] hover:border-[#10234a]"
+              }`}
+            >
+              {/* Ảnh bìa của bài viết */}
+              <Image
+                src={article.cover}
+                alt={article.title}
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+                className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+              />
+
+              {/* Lớp phủ tối nhẹ giúp chữ nổi bật trên nền ảnh */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent transition-opacity group-hover:from-black/80" />
+
+              {/* Tiêu đề & Nút mũi tên bên trong hộp vuông */}
+              <div className="absolute inset-0 flex flex-col justify-between p-5 text-white">
+                <div className="flex justify-end">
+                  <span
+                    className={`flex size-9 items-center justify-center rounded-full border border-white/80 bg-black/20 backdrop-blur-sm transition-transform duration-300 ${
+                      isOpen ? "rotate-90 bg-white text-[#10234a]" : "group-hover:translate-x-1"
                     }`}
-                    fill="none"
-                    viewBox="0 0 24 24"
                   >
-                    <path
-                      d="M3 12h17m-7-7 7 7-7 7"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="1.2"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </h2>
-            {isOpen && (
-              <article
-                aria-labelledby={`${panelId}-title`}
-                className="border-t border-[#df818c] py-8 text-[#10234a]"
-                id={panelId}
-              >
-                <h3
-                  className="mx-auto mb-8 w-fit max-w-full border-b border-[#df818c] px-2 pb-3 text-center font-[family-name:var(--font-Instru)] text-[clamp(2.25rem,6vw,3.75rem)] italic leading-none text-[#d77f8a]"
-                  id={`${panelId}-title`}
-                >
-                  {article.title}
-                </h3>
-                <div className="space-y-6 font-[family-name:var(--font-Instru)] text-base leading-relaxed md:text-lg">
-                  {article.paragraphs.map((paragraph, paragraphIndex) => (
-                    <p
-                      className={paragraph.className}
-                      key={paragraphIndex}
-                      dangerouslySetInnerHTML={{ __html: paragraph.text }}
-                    ></p>
-                  ))}
+                    <svg
+                      aria-hidden="true"
+                      className="size-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M3 12h17m-7-7 7 7-7 7"
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="1.5"
+                      />
+                    </svg>
+                  </span>
                 </div>
-              </article>
-            )}
-          </section>
-        );
-      })}
+
+                <h2 className="font-[family-name:var(--font-Instru)] text-[clamp(1.4rem,2.5vw,1.85rem)] italic leading-tight drop-shadow-md">
+                  {article.title}
+                </h2>
+              </div>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Khu vực hiển thị nội dung bài viết khi bấm vào một hộp vuông */}
+      <div ref={contentRef}>
+        {activeArticle !== null && (
+          <article
+            className="mt-12 border-y-2 border-[#df818c] bg-white/60 px-6 py-10 text-[#10234a] shadow-sm md:px-12"
+            id={`writing-article-${activeArticle}`}
+          >
+            <div className="mb-8 flex items-center justify-between border-b border-[#df818c] pb-4">
+              <h3 className="font-[family-name:var(--font-Instru)] text-[clamp(2rem,5vw,3.5rem)] italic leading-none text-[#d77f8a]">
+                {articles[activeArticle].title}
+              </h3>
+              <button
+                type="button"
+                onClick={() => setActiveArticle(null)}
+                className="rounded-full border border-[#df818c] px-4 py-1.5 font-[family-name:var(--font-Instru)] text-sm text-[#d77f8a] transition-colors hover:bg-[#df818c] hover:text-white"
+              >
+                Close ✕
+              </button>
+            </div>
+
+            <div className="space-y-6 font-[family-name:var(--font-Instru)] text-base leading-relaxed md:text-lg">
+              {articles[activeArticle].paragraphs.map((paragraph, paragraphIndex) => (
+                <p
+                  className={paragraph.className}
+                  key={paragraphIndex}
+                  dangerouslySetInnerHTML={{ __html: paragraph.text }}
+                ></p>
+              ))}
+            </div>
+          </article>
+        )}
+      </div>
     </div>
   );
 }

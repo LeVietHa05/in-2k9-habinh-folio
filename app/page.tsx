@@ -13,7 +13,7 @@ export default function Home() {
           sizes="100vw"
           alt=""
         />
-        <section className="mx-auto grid  max-w-[1440px] grid-cols-[minmax(280px,0.8fr)_minmax(0,1.3fr)] items-center gap-5 px-[7vw] py-16 max-md:grid-cols-1 max-md:gap-8 max-md:px-6 max-md:py-12">
+        <section className="mx-auto grid max-w-[1440px] grid-cols-[minmax(280px,0.8fr)_minmax(0,1.3fr)] items-center gap-5 px-[7vw] py-16 max-md:grid-cols-1 max-md:gap-8 max-md:px-6 max-md:py-12">
           <div className="relative aspect-[0.87] w-full overflow-hidden max-md:mx-auto max-md:aspect-[4/5] max-md:max-w-[460px]">
             <Image
               className="object-cover object-center"
@@ -42,12 +42,12 @@ export default function Home() {
                 preservation and a sprinkle of epiphanies, which I attempt to
                 encourage through long countryside walks, afternoons at the
                 nearby Village Center, and art workshops for local students. It
-                is undoubtedly time-consuming and sometimes fruitless. 
+                is undoubtedly time-consuming and sometimes fruitless. 
               </p>
               <p>
                 Regardless, I regularly document my experiences, seeking that
                 “aha” moment. I hope you enjoy exploring this portfolio and, if
-                the timing is right, find a few surprises. 
+                the timing is right, find a few surprises. 
               </p>
             </div>
           </article>

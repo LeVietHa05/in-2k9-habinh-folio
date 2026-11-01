@@ -233,8 +233,7 @@ const multimedia: Artwork[] = [
 const digitalGroups = [
   {
     title: " ",
-    description:
-      " ",
+    description: " ",
     artworks: [1, 2],
     links: [
       "https://www.youtube.com/watch?v=nrYa2POHE00",
@@ -446,12 +445,18 @@ function ArtworkStrip({
 }
 
 export default function ArtGallery() {
-  const [activeSection, setActiveSection] = useState<number | null>(null);
+  // Mặc định mở cả 3 mục (index 0, 1, 2) khi vừa tải trang
+  const [openSections, setOpenSections] = useState<number[]>(
+    sections.map((_, index) => index),
+  );
   const [activeArtwork, setActiveArtwork] = useState<Artwork | null>(null);
 
   function toggleSection(index: number) {
-    setActiveSection((current) => (current === index ? null : index));
-    setActiveArtwork(null);
+    setOpenSections((current) =>
+      current.includes(index)
+        ? current.filter((item) => item !== index)
+        : [...current, index],
+    );
   }
 
   function selectArtwork(artwork: Artwork) {
@@ -463,7 +468,7 @@ export default function ArtGallery() {
   return (
     <div className="mx-auto w-full max-w-[1000px]">
       {sections.map((section, index) => {
-        const isOpen = activeSection === index;
+        const isOpen = openSections.includes(index);
         const panelId = `art-section-${index}`;
 
         return (
