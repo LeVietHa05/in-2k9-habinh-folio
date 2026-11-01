@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import NavBar from "./Nav";
 
 export default function Header({
@@ -36,29 +37,31 @@ export default function Header({
           </h2>
         </div>
       </section>
-      <div
-        className="h-[52px] shrink-0 overflow-hidden border-b border-[#10234a] bg-white text-[#10234a]"
-        aria-label="Hà Bình Portfolio"
+
+      {/* Menu "About me | Writing | Art" thay cho dòng chữ chạy */}
+      <nav
+        className="flex h-[52px] shrink-0 items-center justify-center gap-10 border-b border-[#10234a] bg-white px-4 text-[#10234a] md:gap-20"
+        aria-label="Section menu"
       >
-        <div className="flex h-full w-max animate-ticker-scroll motion-reduce:animate-none">
-          {[0, 1].map((group) => (
-            <div
-              className="flex h-full w-max shrink-0 items-center"
-              aria-hidden={group === 1}
-              key={group}
-            >
-              {Array.from({ length: 8 }, (_, index) => (
-                <span
-                  className="inline-flex items-center gap-5 whitespace-nowrap pr-5 font-[family-name:var(--font-Instru)] text-[1.45rem] leading-none"
-                  key={index}
-                >
-                  Hà Bình Portfolio <span aria-hidden="true">•</span>
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
+        <Link
+          href="/"
+          className="font-[family-name:var(--font-Instru)] text-[1.45rem] leading-none transition-transform hover:scale-105 hover:underline"
+        >
+          About me
+        </Link>
+        <Link
+          href="/writing"
+          className="font-[family-name:var(--font-Instru)] text-[1.45rem] leading-none transition-transform hover:scale-105 hover:underline"
+        >
+          Writing
+        </Link>
+        <Link
+          href="/art"
+          className="font-[family-name:var(--font-Instru)] text-[1.45rem] leading-none transition-transform hover:scale-105 hover:underline"
+        >
+          Art
+        </Link>
+      </nav>
     </header>
   );
 }
